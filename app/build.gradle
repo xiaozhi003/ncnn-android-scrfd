@@ -1,0 +1,31 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 34
+
+    namespace 'com.tencent.scrfdncnn'
+    defaultConfig {
+        applicationId "com.tencent.scrfdncnn"
+        archivesBaseName = "$applicationId"
+
+        minSdkVersion 24
+    }
+
+    externalNativeBuild {
+        cmake {
+            version "3.18.1"
+            path file('src/main/jni/CMakeLists.txt')
+        }
+    }
+
+    ndkVersion "26.2.11394342" // e.g.,  ndkVersion "21.3.6528147"
+
+
+}
+
+dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+}

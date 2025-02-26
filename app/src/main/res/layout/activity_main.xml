@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/ndkCameraBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NDKCamera" />
+
+    <Button
+        android:id="@+id/imageDetectBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="图片检测" />
+
+    <Button
+        android:id="@+id/faceCameraBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Camera检测" />
+
+    <Button
+        android:id="@+id/faceCamera2Btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Camera2检测" />
+
+</LinearLayout>

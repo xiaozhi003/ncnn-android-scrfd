@@ -12,7 +12,8 @@
         android:id="@+id/ndkCameraBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="NDKCamera" />
+        android:text="NDKCamera"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/imageDetectBtn"
@@ -24,12 +25,14 @@
         android:id="@+id/faceCameraBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Camera检测" />
+        android:text="Camera检测"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/faceCamera2Btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Camera2检测" />
+        android:text="Camera2检测"
+        android:textAllCaps="false" />
 
 </LinearLayout>

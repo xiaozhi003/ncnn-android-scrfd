@@ -1,6 +1,6 @@
 # 说明
 
-该项目原版地址：https://github.com/nihui/ncnn-android-scrfd，是ncnn作者nihui开源的人脸项目
+该项目原版地址：https://github.com/nihui/ncnn-android-scrfd ，是ncnn作者nihui开源的人脸项目
 
 项目中操作摄像头使用了`ndkcamera`，对于普通Android开发者这不是常用和熟悉的方式，因此我对该项目进行了一些扩展
 

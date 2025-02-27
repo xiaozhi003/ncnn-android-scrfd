@@ -9,6 +9,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.util.Size;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -32,6 +34,7 @@ public class CameraActivity extends AppCompatActivity {
     public static final int REQUEST_CAMERA = 100;
 
     private FrameLayout mContentLayout;
+    private Button mSwitchCameraBtn;
     private CameraSurfaceView mCameraSurfaceView;
     private FrameFaceView mFrameFaceView;
     private FaceDetectorThread mFaceDetectorThread;
@@ -42,16 +45,17 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         mContentLayout = findViewById(R.id.contentLayout);
+        mSwitchCameraBtn = findViewById(R.id.switchCameraBtn);
         mCameraSurfaceView = findViewById(R.id.cameraView);
         mFrameFaceView = findViewById(R.id.frameView);
 
+        mSwitchCameraBtn.setOnClickListener(v -> {
+            mCameraSurfaceView.getCameraManager().switchCamera();
+            mFrameFaceView.setMirror(mCameraSurfaceView.getCameraManager().getCameraId() == 1);
+        });
         mCameraSurfaceView.getCameraManager().setCameraId(1);
         mCameraSurfaceView.getCameraManager().setPreviewSize(new Size(640, 480));
-        if (mCameraSurfaceView.getCameraManager().getCameraId() == 1) {
-            mFrameFaceView.setMirror(true);
-        } else {
-            mFrameFaceView.setMirror(false);
-        }
+        mFrameFaceView.setMirror(mCameraSurfaceView.getCameraManager().getCameraId() == 1);
 
         mContentLayout.post(() -> {
             int contentWidth = mContentLayout.getMeasuredWidth();

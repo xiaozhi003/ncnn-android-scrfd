@@ -7,6 +7,12 @@
     android:id="@+id/contentLayout"
     tools:context=".Camera2Activity">
 
+    <Button
+        android:id="@+id/switchCameraBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="切换摄像头" />
+
     <com.tencent.scrfdncnn.view.DisplayYUVGLSurfaceView
         android:id="@+id/cameraView"
         android:layout_width="300dp"

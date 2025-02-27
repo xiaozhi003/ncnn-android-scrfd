@@ -2,10 +2,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/contentLayout"
     tools:context=".CameraActivity">
+
+    <Button
+        android:id="@+id/switchCameraBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="切换摄像头" />
 
     <com.android.xz.camera.view.CameraSurfaceView
         android:id="@+id/cameraView"

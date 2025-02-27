@@ -2,7 +2,11 @@ package com.tencent.scrfdncnn;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +15,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.util.Size;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.android.xz.camera.Camera2Manager;
@@ -30,14 +36,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class Camera2Activity extends AppCompatActivity implements CameraCallback {
 
     private static final String TAG = Camera2Activity.class.getSimpleName();
+    public static final int REQUEST_CAMERA = 100;
 
     private FrameLayout mContentLayout;
+    private Button mSwitchCameraBtn;
     private DisplayYUVGLSurfaceView mDisplayYUVGLSurfaceView;
     private FrameFaceView mFrameFaceView;
 
     private ICameraManager mCameraManager;
-    private int mCameraId = 1;
-
     private FaceDetectorThread mFaceDetectorThread;
 
     @Override
@@ -46,22 +52,17 @@ public class Camera2Activity extends AppCompatActivity implements CameraCallback
         setContentView(R.layout.activity_camera2);
 
         mContentLayout = findViewById(R.id.contentLayout);
+        mSwitchCameraBtn = findViewById(R.id.switchCameraBtn);
         mDisplayYUVGLSurfaceView = findViewById(R.id.cameraView);
         mFrameFaceView = findViewById(R.id.frameView);
 
         mCameraManager = new Camera2Manager(this);
-        mCameraManager.setCameraId(mCameraId);
+        mCameraManager.setCameraId(1);
         mCameraManager.setCameraCallback(this);
         mCameraManager.setPreviewSize(new Size(640, 480));
         mCameraManager.addPreviewBufferCallback(mPreviewBufferCallback);
 
-        if (mCameraId == 1) {
-            mFrameFaceView.setMirror(true);
-        } else {
-            mFrameFaceView.setMirror(false);
-        }
-
-        mDisplayYUVGLSurfaceView.setCameraId(mCameraId);
+        mSwitchCameraBtn.setOnClickListener(v -> mCameraManager.switchCamera());
 
         mContentLayout.post(() -> {
             int contentWidth = mContentLayout.getMeasuredWidth();
@@ -82,6 +83,9 @@ public class Camera2Activity extends AppCompatActivity implements CameraCallback
     @Override
     protected void onResume() {
         super.onResume();
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
+        }
         mCameraManager.openCamera();
         startDetector();
     }
@@ -109,6 +113,8 @@ public class Camera2Activity extends AppCompatActivity implements CameraCallback
 
     @Override
     public void onOpen() {
+        mFrameFaceView.setMirror(mCameraManager.getCameraId() == 1);
+        mDisplayYUVGLSurfaceView.setCameraId(mCameraManager.getCameraId());
         mCameraManager.startPreview((SurfaceTexture) null);
     }
 
